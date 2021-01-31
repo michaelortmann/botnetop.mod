@@ -31,14 +31,21 @@ clean:
 distclean: clean
 
 #safety hash
-../botnetop.o: .././botnetop.mod/botnetop.c ../../../src/mod/module.h \
- ../../../src/main.h ../../../config.h \
- ../../../src/eggdrop.h ../../../src/flags.h ../../../src/proto.h \
- ../../../lush.h ../../../src/misc_file.h ../../../src/cmdt.h \
- ../../../src/tclegg.h ../../../src/tclhash.h ../../../src/chan.h \
- ../../../src/users.h ../../../src/compat/compat.h \
+botnetop.o: .././botnetop.mod/botnetop.c .././botnetop.mod/../module.h \
+ ../../../src/main.h ../../../config.h ../../../eggint.h ../../../lush.h \
+ ../../../src/lang.h ../../../src/eggdrop.h ../../../src/compat/in6.h \
+ ../../../src/flags.h ../../../src/cmdt.h ../../../src/tclegg.h \
+ ../../../src/tclhash.h ../../../src/chan.h ../../../src/users.h \
+ ../../../src/compat/compat.h ../../../src/compat/base64.h \
  ../../../src/compat/inet_aton.h ../../../src/compat/snprintf.h \
- ../../../src/compat/memset.h ../../../src/compat/memcpy.h \
- ../../../src/compat/strcasecmp.h ../../../src/compat/strftime.h \
- ../../../src/mod/modvals.h ../../../src/tandem.h \
- ../botnetop.mod/botnetop.h
+ ../../../src/compat/gethostbyname2.h \
+ ../../../src/compat/explicit_bzero.h ../../../src/compat/strlcpy.h \
+ .././botnetop.mod/../modvals.h ../../../src/tandem.h \
+ .././botnetop.mod/../irc.mod/irc.h \
+ .././botnetop.mod/../server.mod/server.h \
+ .././botnetop.mod/../channels.mod/channels.h \
+ .././botnetop.mod/botnetop.h .././botnetop.mod/botbinds.c \
+ .././botnetop.mod/botcmds.c .././botnetop.mod/delay.c \
+ .././botnetop.mod/flood.c .././botnetop.mod/ircbinds.c \
+ .././botnetop.mod/misc.c .././botnetop.mod/request.c \
+ .././botnetop.mod/tclcmds.c .././botnetop.mod/who.c
