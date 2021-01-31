@@ -1,0 +1,110 @@
+Changes in botnetop.mod: (since 0.2.0)
+--------------------------------------
+
+1.1.0-delta (Oct 18, 2010)
+ * Updated dependencies to make the module run on eggdrop 1.8.x [pseudo]
+ * Removed a compile warning [pseudo]
+
+1.1.0-gamma (July 9, 2002)
+ * Suggesting ops now when a bot joins a channel or a bot gets (de)opped.
+ * Removed some duplicate sanity-checks.
+ * Tcl commands are now disabled by default in order to stop
+   botnetop.mod interfering with botnetop.tcl.
+ * In some circumstances bnop_botwantsops() was announcing that it
+   had opped a bot when in fact it hadn't. 
+ * bnop_modeop() wasn't working at all.
+ * Slightly edited modinfo.
+ * Added COPYING file.
+ * Added request structure to avoid mode flooding.
+ * Changed egg_strcasecmp() to rfc_casecmp() in few places.
+ * Added ENABLE_TCL_COMMANDS definition to disable Tcl commands.
+ * Updated copyright information to include the year 2002.
+ * Updated README a bit.
+ * Now delay records are created for every bot<->channel 
+   combination. [found by NML_375]
+ * Added flood protection and removed some useless
+   sanity-checks. [fuchs/Sup]
+ * Should compile dynamically on Cygwin now. [found by Kirben]
+ * Slightly edited Makefile.
+ * Removed the needs record to speed up the module.
+ * Using mostly dynamic buffers now.
+ * Added three new Tcl commands: bop_askbot and bop_lowbots
+ * Added eight new Tcl variables: bop_hcheck, bop_oninvite, bop_onlimit, 
+   bop_onunban, bop_onkey, bop_flood, bop_ignore, bop_quickop.
+ * Added bop_lowbotslimit Tcl variable. [found by Abraham]
+ * Rewrote and cleaned up practically every function to increase speed.
+ * Need binding now calls bnop_reqop() function.
+ * bnop_botwantsin() doesn't get confused anymore if the chanlimit is set to -1.
+ * Added more checks that memory was really allocated.
+ * Using DP_MODE queue for USERHOST now.
+
+1.0.1 (February 14, 2001)
+ * Bot was unable to op other bots with nicks longer than HANDLEN. [found by Jan Gylta]
+ * Updated the copyright information in every file.
+
+1.0.0 (November 11, 2000)
+ * Added functions to delete delay and needs records. 
+ * Fixed various bugs in structures. [NML_375/Sup]
+ * The structure of botnetop.h was broken. [found by Abraham]
+ * Changed userhost checking to use USERHOST.
+ * Added needs record to reduce the amount of botnet traffic.
+ * Added some comments to botnetop.h [found by Fabian]
+ * Removed all calls to Context.
+ * Fixed the module dependency information.
+ * Modified the outputs of request logs.
+ * Who records were deleted in a wrong place.
+ * Fixed few function declarations in botnetop.h.
+ * Fixed little bug in lowbots() function.
+ * Updated README and fixed few minor mistakes in UPDATES.
+ * Changed almost all while() to for().
+ * Added checks for empty strings in bot bindings.
+ * Made various functions to use strncpyz() macro instead of
+   strncpy() and check that memory was really allocated. [Fabian/Sup]
+
+0.9.0 (September 26, 2000)
+ * Changed file permissions to 0644. [found by Johoho]
+ * Userhost checking uses now WHOIS instead of WHO. [found by Abraham]
+
+0.8.0 (September 25, 2000)
+ * Fixed a little bug in the delayed op requesting. [found by SuperS]
+ * Removed one backslash which caused compile warnings on some systems. [NML_375]
+ * Fixed various bugs in who.c. [NML_375]
+ * Fixed various bugs in delay.c.
+
+0.7.0 (September 23, 2000)
+ * Cleaned up almost every file.
+ * Removed the cycle notice.
+ * Removed hasops() function because it came obsolete.
+ * Added checking for bot's userhost before inviting it to a channel.
+
+0.6.0 (September 2, 2000)
+ * Fixed a little bug in modinfo file. [found by Fabian]
+ * Fixed a minor bug in the hostmask adding.
+ * Changed few while() to for().
+ * Changed all strcpy() to strncpy().
+ * Changed all sprintf() to egg_snprintf().
+ * Slightly cleaned up delay.c.
+
+0.5.0 (August 28, 2000)
+ * Fixed the bindings.
+ * Slightly cleaned up and modified various functions.
+ * Added lowbots() function.
+ * Added delays to requesting and responsing.
+ * Updated README and botnetop.conf.
+
+0.4.0 (August 25, 2000)
+ * Added botnetop.conf file.
+ * Added modinfo file.
+ * Added hasops() function.
+ * Added a cycle notice.
+ * Few "\n" were missing.
+ * Fixed minor typos and mistakes in every file.
+ * Fixed the priorities of the commands sent to the server.
+
+0.3.0 (August 22, 2000)
+ * Slightly cleaned up misc.c.
+ * Added need bindings.
+ * Added UPDATES file.
+
+0.2.0 (August 14, 2000)
+ * Initial release.

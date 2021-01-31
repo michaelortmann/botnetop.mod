@@ -1,0 +1,307 @@
+ _
+| |__   ___  _____ _ __   ___  _____  ___  _ __
+| ´_ \ / _ \|_   _| `_  \/ _ \|_   _|/ _ \| '_ \
+| |_) | (_) | | | | | | |  __/  | | | (_) | |_) |
+|_.__/ \___/  |_| |_| |_|\___|  |_|  \___/| .__/
+                                          |_|     v1.1
+
+          by Teemu Hjelt <temex@iki.fi>
+
+
+At least glance over this document before doing anything with botnetop.mod. 
+If you don't have earlier experiences with eggdrop modules you should read 
+this file thoroughly.
+
+
+Table of Contents
+==================
+
+ 1. Introduction
+ 2. Installation
+ 3. FAQ
+ 4. Tcl commands
+ 5. Tcl variables
+ 6. Feedback
+ 7. Latest version
+ 8. Credits
+ 9. License
+
+
+1. Introduction
+================
+
+botnetop.mod is based on botnetop.tcl written by slennox and was written in C from
+scratch by Teemu Hjelt. botnetop.mod allows linked bots to request and give ops to
+each other. It can also invite linked bots to invite-only channels, share keys with 
+them, raise channels' limits and unban them. botnetop.mod is fully compatible with 
+the botnetop.tcl script and the netbots.tcl's botnetop.tcl component (you can even
+use your netset.tcl to configure botnetop.mod). In addition you can use other botnet
+opping scripts (e.g, getops.tcl) simultaneously with botnetop.mod.
+
+
+2. Installation
+================
+
+botnetop.mod requires at least eggdrop 1.5.4 (1.6.0 or better recommended) 
+and you need to have the irc, the server and the channel modules loaded. 
+You also need the source code of eggdrop to compile the module.
+
+ 1. Go to the directory where you have the eggdrop source code.
+    (Normally the directory where you have extracted the eggdrop tarball)
+ 2. Go to src/mod directory under your eggdrop directory and copy the
+    botnetop.mod tarball there.
+ 3. Type "tar zxvf botnetop.mod-x.x.x.tar.gz" to extract the tarball.
+    (If that doesn't work type first "gzip -d botnetop.mod-x.x.x.tar.gz"
+    and then "tar -xvf botnetop.mod-x.x.x.tar")
+ 4. Configure and compile eggdrop like you would normally do it.
+    (e.g, ./configure && make config && make && make install)
+
+All botnetop.mod settings can be found in the botnetop.conf file.
+You can either copy it to your eggdrop directory, edit it to fit 
+your needs and then add line "source botnetop.conf" to your eggdrop
+config file or you can just copy the contents of the file to your 
+eggdrop config file. If you want to use the default settings all you
+need to do is to add line "loadmodule botnetop" to your eggdrop config 
+file. The last thing is to (re)start or rehash your bot and hope for 
+the best :)
+
+
+3. FAQ
+=======
+
+ 1. Q: Are you ever going to make the module compatible with the 1.4
+       serie of eggdrop?
+
+    A: Probably not, because 1.4 serie is lacking the need bindings
+       and tandbot isn't exported for modules. I've planned to make
+       a patch for 1.4 that exports tandbot for modules but I don't
+       know whether I'm going to carry it out or not.
+
+ 2. Q: I get "`H_need' undeclared (first use in this function)" or 
+       "`tandbot' undeclared (first use this function)" everytime I
+       try to compile eggdrop with botnetop.mod. What should I do?
+
+    Q: When trying to load the module I get "botnetop: Error loading
+       module: /home/lamest/eggdrop/modules/botnetop.so: undefined symbol: 
+       tandbot". How can I fix this?
+
+    A: These errors are caused due to the fact that you have too old version of
+       eggdrop that doesn't have support for need bindings and doesn't export
+       tandbot for modules. You need at least eggdrop 1.5.4 to use botnetop.mod.
+
+ 3. Q: I often get messages like "botnetop.mod: new foobar record created 
+       for #foobar (address: 42424242)". What do they mean?
+
+    A: They are special debugging messages that help me track bugs in
+       memory allocating and freeing. They are nothing serious and if
+       you don't want to see them anymore, type ".console -d" on the 
+       partyline.
+
+ 4. Q: Are you going to add support for language files?
+
+    A: I'm not sure yet. Eggdrop will use gettext in their future
+       versions but implementing gettext support in botnetop.mod  
+       could be a bit difficult.
+
+ 5. Q: Are you going to make botnetop.mod compatible with getops.tcl
+       and/or other similar scripts?
+
+    A: I have thought about it. I'm not sure yet how I should do it
+       because I wouldn't like to make botnetop.mod more bloated
+       than it currently is.
+
+ 6. Q: Can I get botnetop.mod for windrops?
+
+    A: Yes, if you compile it yourself in Cygwin. I have never tested
+       how the module works under Windows so I can't offer any kind of
+       support.
+
+ 7. Q: What kind of versioning policy are you using?
+
+    A: Version 1.0.0 is the first stable version that should be very much
+       alike with botnetop.tcl. The 1.0 tree is intended for fixing bugs 
+       in 1.0.0. When I'm satisfied with the 1.0 serie I will start a new
+       1.1 serie which is intended for adding new features and fixing flaws
+       in botnetop.tcl. Although the versions after 1.1.0 will have more
+       configuration variables they still will be fully compatible with
+       the older versions of the module and botnetop.tcl script.
+
+ 8. Q: My bot crashed. What should I do?
+
+    A: Check the BUG-REPORT file in your bot's doc/ directory and follow 
+       the instructions given. Instead of just sending the bug-report to 
+       bugs@eggheads.org send it also to temex@iki.fi.
+
+ 9. Q: Why is botnetop.mod so slow? I thought the fact that it's written
+       in C makes it a lot faster compared to Tcl scripts.
+
+    A: In fact Tcl scripts aren't as slow as people often tend to think.
+       However, I'm not satisfied with the speed of the module myself either
+       but I'm hoping the versions in 1.1 tree work a lot faster than the
+       older versions.
+
+10. Q: Do I need to recompile whole eggdrop everytime I install botnetop.mod?
+
+    A: No, if you still have the directory where you compiled eggdrop with all
+       the binaries and object files (i.e, you haven't executed either "make clean"
+       or "make distclean"). If that is the case you can step over the ./configure
+       phase and only execute "make config && make && make install". The compilation
+       process should be a lot faster because only the module is compiled.
+
+
+4. Tcl commands
+================
+
+Tcl commands are only enabled if ENABLE_TCL_COMMANDS is 
+defined in botnetop.h file.
+
+bop_reqop <channel> <need>
+  Makes the bot request <need> for <channel> from all
+  linked bots. <need> can be op, invite, limit, key or
+  unban. Generally if <need> is other than op bop_letmein
+  is called.
+
+bop_askbot <handle> <channel>
+  Makes the bot ask <handle> if it wants ops on <channel>.
+
+bop_letmein <channel> <need>
+  Makes the bot request <need> for <channel> from all
+  linked bots. <need> can be "invite", "limit", "key" or
+  "unban". Notice that <need> can't be "op".
+
+bop_lowbots <channel>
+  Returns 1 if there are less than three bots on the 
+  channel. Otherwise returns 0.
+
+Note: If you're planning to use both botnetop.mod and botnetop.tcl
+simultaneously, you need to undefine ENABLE_TCL_COMMANDS in botnetop.h 
+file or load the script after the module in order to make the script 
+use its own Tcl procedures.
+
+
+5. Tcl variables
+=================
+
+bop_delay
+  Maximum number of seconds to delay before asking a non-opped bot 
+  if it needs ops. Set to 0 to disable.
+
+bop_maxreq
+  Maximum number of bots to request ops from at a time. Set to 0 
+  to disable.
+
+bop_modeop [0/1]
+  Make the bot send an op request when it sees a bot become opped on a 
+  channel? This will make your bot get ops sooner when another bot is 
+  given ops.
+
+bop_linkop [0/1]
+  Make the bot send an op request when a bot links? This will make your bot 
+  get ops sooner if linking is delayed, and provides a better chance of the 
+  bots opping one another if there are linking problems.
+
+bop_icheck [0/1]
+  Check bot's userhost before inviting it to a channel?
+
+bop_hcheck [0/1]
+  This option performs a hostmask check over the botnet.
+
+bop_osync [0/1]
+  Make the bot give ops to a bot even if it looks like it's already opped
+  on the channel?
+
+bop_addhost [0/1]
+  Make the bot to try add new hostmasks for bots?
+
+bop_log [0/1/2]
+  Set this to 2 to enable all logging, 1 to disable logging of ops/op
+  requests and 0 to disable all logging.
+
+bop_oninvite [0/1]
+  What to do when a bot asks for an invite? Set this to 0 to invite
+  the bot to the channel and 1 to set +I for the bot.
+
+bop_onlimit [0/1]
+  What to do when a bot asks for a limit raise? Set this to 0 to
+  raise the limit by one and 1 to invite the bot to the channel.
+
+bop_onunban [0/1/2]
+  What to do when a bot asks for an unban? Set this to 0 to unban the
+  bot, 1 to set +e for the bot and 2 to invite the bot to the channel.
+
+bop_onkey [0/1]
+  What to do when a bot asks for a key? Set this to 0 to send the 
+  key to the bot and 1 to invite the bot to the channel.
+
+bop_lowbotslimit
+  If the amount of bots on the channel is below this, send the ops
+  request right away. Set to 0 to disable.
+
+bop_flood
+  Answer only X requests in Y seconds. This prevents flooding of
+  your botnet with botnetop requests. Set to 0:0 to disable.
+
+bop_ignore
+  Ignore requests for X seconds if the limit in bop_flood has
+  been reached. Set to 0 to disable.
+
+bop_quickop [0/1]
+  Use a faster mode queue to give ops quicker?
+
+
+6. Feedback
+============
+
+You can contact the author at temex@iki.fi. All kinds of questions, suggestions,
+comments and bug-reports are welcome and highly appreciated. Please feel free to
+send also patches. Patches should be in unified (the -u switch in diff) format. 
+Before sending any questions etc. please read through this document, especially 
+the FAQ.
+
+
+7. Latest version
+==================
+
+The main site for botnetop.mod is http://www.iki.fi/temex/eggdrop/
+
+You can obtain the latest version from the site above or
+via CVS by typing the following lines to your shell prompt:
+ 1. cvs -d :pserver:anonymous@cvs.eggheads.org:/usr/local/cvsroot login
+    (when CVS asks for a password just press enter)
+ 2. cvs -d :pserver:anonymous@cvs.eggheads.org:/usr/local/cvsroot checkout botnetop.mod
+
+The CVS web is available at http://www.eggheads.org/cgi-bin/cvsweb/botnetop.mod/
+
+
+8. Credits
+===========
+
+The author wants to thank the following people (in alphabetical order):
+
+ * \-\itman for beta testing.
+ * Abraham for beta testing and breaking practically everything.
+ * daimonic for beta testing and telling good jokes.
+ * Fabian for helping whenever I needed help.
+ * fuchs for ideas and patches.
+ * G`Quann for helping solve few problems.
+ * guppy for solving few problems and setting up the CVS.
+ * guruz for beta testing and telling bad jokes.
+ * Johoho for beta testing.
+ * NML_375 for helping with pointers and fixing few bugs.
+ * slennox for writing botnetop.tcl.
+ * SuperS for ideas, suggestions and beta testing.
+ * Wull for helping with structures.
+
+The author is also grateful for all the people who have sent bug-reports 
+and supported the project in other ways.
+
+
+9. License
+===========
+
+botnetop.mod is written by Teemu Hjelt and is released to the public under
+the terms of the GNU General Public License. For the complete license please
+see the file called COPYING.
+
+
+Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>

@@ -1,0 +1,5 @@
+DESC:The botnetop module provides methods for botnet opping, 
+DESC:inviting, limit raising, key sharing and unbanning.
+DESC:
+DESC:You will normally want to ENABLE this module if you're dealing with botnets.
+DEPENDS:irc server channels
