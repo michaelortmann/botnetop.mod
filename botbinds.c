@@ -68,11 +68,11 @@ static int bnop_reqtmr(char *bot, char *code, char *par)
 static int bnop_doiwantops(char *bot, char *code, char *par)
 {
   int i, bufsize;
-  char *chname = NULL, *fromnick = NULL, *buf = NULL;
+  char *chname = NULL, *buf = NULL;
   struct chanset_t *chan = NULL;
 
   chname = newsplit(&par);
-  fromnick = newsplit(&par);
+  newsplit(&par);
   if (!(chan = findchan_by_dname(chname)))
     return 0;
   if ((i = nextbot(bot)) >= 0) {
