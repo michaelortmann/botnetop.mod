@@ -205,13 +205,9 @@ char *botnetop_start(Function * global_funcs)
   global = global_funcs;
 
   module_register(MODULE_NAME, botnetop_table, 1, 1);
-  if (!module_depend(MODULE_NAME, "eggdrop", 108, 0)) {
-    if (!module_depend(MODULE_NAME, "eggdrop", 106, 0)) {
-      if (!module_depend(MODULE_NAME, "eggdrop", 105, 4)) {
+  if (!module_depend(MODULE_NAME, "eggdrop", 108, 4)) {
         module_undepend(MODULE_NAME);
-        return "This module requires eggdrop1.5.4 or later";
-      }
-    }
+        return "This module requires Eggdrop 1.8.4 or later.";
   }
   if (!(irc_funcs = module_depend(MODULE_NAME, "irc", 1, 0))) {
     module_undepend(MODULE_NAME);
