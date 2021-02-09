@@ -202,7 +202,7 @@ char *botnetop_start(Function * global_funcs)
 {
   global = global_funcs;
 
-  module_register(MODULE_NAME, botnetop_table, 1, 1);
+  module_register(MODULE_NAME, botnetop_table, 1, 2);
   if (!module_depend(MODULE_NAME, "eggdrop", 108, 4)) {
         module_undepend(MODULE_NAME);
         return "This module requires Eggdrop 1.8.4 or later.";
