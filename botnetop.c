@@ -1,7 +1,5 @@
 /* 
  * botnetop.c -- part of botnetop.mod
- * 
- * $Id: botnetop.c,v 1.10 2010/10/20 17:30:51 pseudo Exp $
  */
 /*
  * Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>

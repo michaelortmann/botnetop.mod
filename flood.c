@@ -1,7 +1,5 @@
 /* 
  * flood.c -- part of botnetop.mod
- * 
- * $Id: flood.c,v 1.1 2002/07/14 09:29:53 sup Exp $
  */
 /*
  * Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>

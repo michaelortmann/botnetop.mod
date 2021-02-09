@@ -1,7 +1,5 @@
 /*
  * botcmds.c -- part of botnetop.mod
- * 
- * $Id: botcmds.c,v 1.8 2002/07/14 09:28:44 sup Exp $
  */
 /*
  * Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>

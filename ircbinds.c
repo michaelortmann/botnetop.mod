@@ -1,7 +1,5 @@
 /* 
  * ircbinds.c -- part of botnetop.mod
- * 
- * $Id: ircbinds.c,v 1.9 2002/07/14 09:28:45 sup Exp $
  */
 /*
  * Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>

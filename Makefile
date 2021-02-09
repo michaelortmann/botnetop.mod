@@ -1,5 +1,4 @@
 # Makefile for src/mod/botnetop.mod/
-# $Id: Makefile,v 1.4 2002/07/14 09:28:44 sup Exp $
 
 srcdir = .
 

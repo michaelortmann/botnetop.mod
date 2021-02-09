@@ -1,7 +1,5 @@
 /*
  * botbinds.c -- part of botnetop.mod
- * 
- * $Id: botbinds.c,v 1.7 2002/07/14 09:28:44 sup Exp $
  */
 /*
  * Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>

@@ -1,7 +1,5 @@
 /* 
  * request.c -- part of botnetop.mod
- * 
- * $Id: request.c,v 1.2 2010/10/20 17:30:52 pseudo Exp $
  */
 /*
  * Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>

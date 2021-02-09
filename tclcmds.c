@@ -1,7 +1,5 @@
 /*
  * tclcmds.c -- part of botnetop.mod
- * 
- * $Id: tclcmds.c,v 1.6 2002/07/14 09:28:45 sup Exp $
  */
 /*
  * Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>
