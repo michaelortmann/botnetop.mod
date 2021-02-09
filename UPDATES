@@ -80,7 +80,7 @@
 - Fixed the bindings.
 - Slightly cleaned up and modified various functions.
 - Added lowbots() function.
-- Added delays to requesting and responsing.
+- Added delays to requesting and responding.
 - Updated README and botnetop.conf.
 0.4.0 August 25, 2000
 - Added botnetop.conf file.
