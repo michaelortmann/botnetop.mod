@@ -186,19 +186,19 @@ static int bnop_userhost(char *from, char *msg)
 
 static cmd_t botnetop_mode[] =
 {
-  {"% +o",	"",	(Function) bnop_modeop,		"bop_modeop"},
-  {"% -o",	"",	(Function) bnop_modedeop,	"bop_modedeop"},
+  {"% +o",	"",	(IntFunc) bnop_modeop,		"bop_modeop"},
+  {"% -o",	"",	(IntFunc) bnop_modedeop,	"bop_modedeop"},
   {0,		0,	0,				0}
 };
 
 static cmd_t botnetop_join[] =
 {
-  {"*",	"",	(Function) bnop_jointmr,	"bop_jointmr"},
+  {"*",	"",	(IntFunc) bnop_jointmr,	"bop_jointmr"},
   {0,	0,	0,				0}
 };
 
 static cmd_t botnetop_raw[] =
 {
-  {"302",	"",	(Function) bnop_userhost,	"bop_userhost"},
+  {"302",	"",	(IntFunc) bnop_userhost,	"bop_userhost"},
   {0,		0,	0,				0}
 };

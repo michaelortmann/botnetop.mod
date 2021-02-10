@@ -145,6 +145,6 @@ static void bnop_letmein(struct chanset_t *chan, char *need)
 
 static cmd_t botnetop_need[] =
 {
-  {"*",	"",	(Function) bnop_reqop,	"bop_reqop"},
+  {"*",	"",	(IntFunc) bnop_reqop,	"bop_reqop"},
   {0,	0,	0,			0}
 };

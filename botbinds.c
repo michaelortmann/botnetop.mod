@@ -247,19 +247,19 @@ static int bnop_joinkey(char *bot, char *code, char *par)
 
 static cmd_t botnetop_link[] =
 {
-  {"*",	"",	(Function) bnop_linkop,	"bop_linkop"},
+  {"*",	"",	(IntFunc) bnop_linkop,	"bop_linkop"},
   {0,	0,	0,			0}
 };
 
 static cmd_t botnetop_bot[] =
 {
-  {"doyawantops",	"",	(Function) bnop_doiwantops,	"bop_doiwantops"},
-  {"yesiwantops",	"",	(Function) bnop_botwantsops,	"bop_botwantsops"},
-  {"reqops",		"",	(Function) bnop_reqtmr,		"bop_reqtmr"},
-  {"wantkey",		"",	(Function) bnop_botwantsin,	"bop_botwantsin"},
-  {"wantinvite",	"",	(Function) bnop_botwantsin,	"bop_botwantsin"},
-  {"wantlimit",		"",	(Function) bnop_botwantsin,	"bop_botwantsin"},
-  {"wantunban",		"",	(Function) bnop_botwantsin,	"bop_botwantsin"},
-  {"thekey",		"",	(Function) bnop_joinkey,	"bop_joinkey"},
+  {"doyawantops",	"",	(IntFunc) bnop_doiwantops,	"bop_doiwantops"},
+  {"yesiwantops",	"",	(IntFunc) bnop_botwantsops,	"bop_botwantsops"},
+  {"reqops",		"",	(IntFunc) bnop_reqtmr,		"bop_reqtmr"},
+  {"wantkey",		"",	(IntFunc) bnop_botwantsin,	"bop_botwantsin"},
+  {"wantinvite",	"",	(IntFunc) bnop_botwantsin,	"bop_botwantsin"},
+  {"wantlimit",		"",	(IntFunc) bnop_botwantsin,	"bop_botwantsin"},
+  {"wantunban",		"",	(IntFunc) bnop_botwantsin,	"bop_botwantsin"},
+  {"thekey",		"",	(IntFunc) bnop_joinkey,	"bop_joinkey"},
   {0,			0,	0,				0}
 };
