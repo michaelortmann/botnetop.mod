@@ -6,10 +6,10 @@
 1.1.0-gamma July 9, 2002
 - Suggesting ops now when a bot joins a channel or a bot gets (de)opped.
 - Removed some duplicate sanity-checks.
-- Tcl commands are now disabled by default in order to stop
-  botnetop.mod interfering with botnetop.tcl.
-- In some circumstances bnop_botwantsops() was announcing that it
-  had opped a bot when in fact it hadn't. 
+- Tcl commands are now disabled by default in order to stop botnetop.mod
+  interfering with botnetop.tcl.
+- In some circumstances bnop_botwantsops() was announcing that it had opped a
+  bot when in fact it hadn't. 
 - bnop_modeop() wasn't working at all.
 - Slightly edited modinfo.
 - Added COPYING file.
@@ -18,16 +18,15 @@
 - Added ENABLE_TCL_COMMANDS definition to disable Tcl commands.
 - Updated copyright information to include the year 2002.
 - Updated README a bit.
-- Now delay records are created for every bot<->channel 
-  combination. [found by NML_375]
-- Added flood protection and removed some useless
-  sanity-checks. [fuchs/Sup]
+- Now delay records are created for every bot<->channel combination.
+  [found by NML_375]
+- Added flood protection and removed some useless sanity-checks. [fuchs/Sup]
 - Should compile dynamically on Cygwin now. [found by Kirben]
 - Slightly edited Makefile.
 - Removed the needs record to speed up the module.
 - Using mostly dynamic buffers now.
 - Added three new Tcl commands: bop_askbot and bop_lowbots
-- Added eight new Tcl variables: bop_hcheck, bop_oninvite, bop_onlimit, 
+- Added eight new Tcl variables: bop_hcheck, bop_oninvite, bop_onlimit,
   bop_onunban, bop_onkey, bop_flood, bop_ignore, bop_quickop.
 - Added bop_lowbotslimit Tcl variable. [found by Abraham]
 - Rewrote and cleaned up practically every function to increase speed.
@@ -54,8 +53,8 @@
 - Updated README and fixed few minor mistakes in UPDATES.
 - Changed almost all while() to for().
 - Added checks for empty strings in bot bindings.
-- Made various functions to use strncpyz() macro instead of
-  strncpy() and check that memory was really allocated. [Fabian/Sup]
+- Made various functions to use strncpyz() macro instead of strncpy() and check
+  that memory was really allocated. [Fabian/Sup]
 0.9.0 September 26, 2000
 - Changed file permissions to 0644. [found by Johoho]
 - Userhost checking uses now WHOIS instead of WHO. [found by Abraham]

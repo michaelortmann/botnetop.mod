@@ -21,7 +21,7 @@
 
 #define MODULE_NAME "botnetop"
 #define MAKING_BOTNETOP
-#define MODULE_VERSION "1.1.0-gamma"
+#define MODULE_VERSION "1.2"
 #include "../module.h"
 #include "../irc.mod/irc.h"
 #include "../server.mod/server.h"
