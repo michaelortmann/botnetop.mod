@@ -61,7 +61,7 @@ static struct delay_t *add_delay(char *chan, char *handle)
   d->next = delay_start;
   delay_start = d;
 
-  putlog(LOG_DEBUG, "*", "botnetop.mod: new delay record created for %s on %s (address: %u)", d->handle, d->chan, d);
+  putlog(LOG_DEBUG, "*", "botnetop.mod: new delay record created for %s on %s (address: %" PRIuPTR ")", d->handle, d->chan, (uintptr_t) d);
 
   return d;
 }
@@ -76,7 +76,7 @@ static void del_delay(struct delay_t *delay)
         old->next = d->next;
       else
         delay_start = d->next;
-      putlog(LOG_DEBUG, "*", "botnetop.mod: delay record removed from %s on %s (address: %u)", d->handle, d->chan, d);
+      putlog(LOG_DEBUG, "*", "botnetop.mod: delay record removed from %s on %s (address: %" PRIuPTR ")", d->handle, d->chan, (uintptr_t) d);
       if (d->chan != NULL)
         nfree(d->chan);
       if (d->handle != NULL)

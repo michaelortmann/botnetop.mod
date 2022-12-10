@@ -78,7 +78,7 @@ static struct who_t *add_who(char *nick, char *chan, char *handle, char *uhost)
   w->next = who_start;
   who_start = w;
 
-  putlog(LOG_DEBUG, "*", "botnetop.mod: new who record created for %s on %s (address: %u)", w->nick, w->chan, w);
+  putlog(LOG_DEBUG, "*", "botnetop.mod: new who record created for %s on %s (address: %" PRIuPTR ")", w->nick, w->chan, (uintptr_t) w);
 
   return w;
 }
@@ -93,7 +93,7 @@ static void del_who(struct who_t *who)
         old->next = w->next;
       else
         who_start = w->next;
-      putlog(LOG_DEBUG, "*", "botnetop.mod: who record removed from %s on %s (address: %u)", w->nick, w->chan, w);
+      putlog(LOG_DEBUG, "*", "botnetop.mod: who record removed from %s on %s (address: %" PRIuPTR ")", w->nick, w->chan, (uintptr_t) w);
       if (w->chan != NULL)
         nfree(w->chan);
       if (w->nick != NULL)

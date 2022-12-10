@@ -58,7 +58,7 @@ static struct request_t *add_request(char *handle, char *chan)
   r->next = request_start;
   request_start = r;
 
-  putlog(LOG_DEBUG, "*", "botnetop.mod: new request record created for %s on %s (address: %u)", r->handle, r->chan, r);
+  putlog(LOG_DEBUG, "*", "botnetop.mod: new request record created for %s on %s (address: %" PRIuPTR ")", r->handle, r->chan, (uintptr_t) r);
 
   return r;
 }
@@ -73,7 +73,7 @@ static void del_request(struct request_t *request)
         old->next = r->next;
       else
         request_start = r->next;
-      putlog(LOG_DEBUG, "*", "botnetop.mod: request record removed from %s on %s (address: %u)", r->handle, r->chan, r);
+      putlog(LOG_DEBUG, "*", "botnetop.mod: request record removed from %s on %s (address: %" PRIuPTR ")", r->handle, r->chan, (uintptr_t) r);
       if (r->handle != NULL)
         nfree(r->handle);
       if (r->chan != NULL)

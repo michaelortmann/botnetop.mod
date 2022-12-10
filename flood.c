@@ -53,7 +53,7 @@ static struct flood_t *add_flood(char *chan)
   f->next = flood_start;
   flood_start = f;
 
-  putlog(LOG_DEBUG, "*", "botnetop.mod: new flood record created for %s (address: %u)", f->chan, f);
+  putlog(LOG_DEBUG, "*", "botnetop.mod: new flood record created for %s (address: %" PRIuPTR ")", f->chan, (uintptr_t) f);
 
   return f;
 }
@@ -68,7 +68,7 @@ static void del_flood(struct flood_t *flood)
         old->next = f->next;
       else
         flood_start = f->next;
-      putlog(LOG_DEBUG, "*", "botnetop.mod: flood record removed from %s (address: %u)", f->chan, f);
+      putlog(LOG_DEBUG, "*", "botnetop.mod: flood record removed from %s (address: %" PRIuPTR ")", f->chan, (uintptr_t) f);
       if (f->chan != NULL)
         nfree(f->chan);
       nfree(f);
