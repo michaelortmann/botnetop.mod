@@ -1,5 +1,6 @@
 1.3 December 10, 2022
-- Fix pointer print. (Michael Ortmann)
+- Fixed typos. (Michael Ortmann)
+- Fixed pointer print. (Michael Ortmann)
 1.2 February 10, 2021
 - Now also works with eggdrop 1.8.4. (Michael Ortmann)
 1.1.0-delta October 18, 2010

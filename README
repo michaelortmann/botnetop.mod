@@ -70,15 +70,15 @@ the best :)
 =======
 
  1. Q: Are you ever going to make the module compatible with the 1.4
-       serie of eggdrop?
+       series of eggdrop?
 
-    A: Probably not, because 1.4 serie is lacking the need bindings
+    A: Probably not, because 1.4 series is lacking the need bindings
        and tandbot isn't exported for modules. I've planned to make
        a patch for 1.4 that exports tandbot for modules but I don't
        know whether I'm going to carry it out or not.
 
  2. Q: I get "`H_need' undeclared (first use in this function)" or 
-       "`tandbot' undeclared (first use this function)" everytime I
+       "`tandbot' undeclared (first use this function)" every time I
        try to compile eggdrop with botnetop.mod. What should I do?
 
     Q: When trying to load the module I get "botnetop: Error loading
@@ -120,8 +120,8 @@ the best :)
 
     A: Version 1.0.0 is the first stable version that should be very much
        alike with botnetop.tcl. The 1.0 tree is intended for fixing bugs 
-       in 1.0.0. When I'm satisfied with the 1.0 serie I will start a new
-       1.1 serie which is intended for adding new features and fixing flaws
+       in 1.0.0. When I'm satisfied with the 1.0 series I will start a new
+       1.1 series which is intended for adding new features and fixing flaws
        in botnetop.tcl. Although the versions after 1.1.0 will have more
        configuration variables they still will be fully compatible with
        the older versions of the module and botnetop.tcl script.
@@ -140,7 +140,7 @@ the best :)
        but I'm hoping the versions in 1.1 tree work a lot faster than the
        older versions.
 
-10. Q: Do I need to recompile whole eggdrop everytime I install botnetop.mod?
+10. Q: Do I need to recompile whole eggdrop every time I install botnetop.mod?
 
     A: No, if you still have the directory where you compiled eggdrop with all
        the binaries and object files (i.e, you haven't executed either "make clean"
