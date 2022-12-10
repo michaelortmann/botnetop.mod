@@ -42,8 +42,8 @@ opping scripts (e.g, getops.tcl) simultaneously with botnetop.mod.
 2. Installation
 ================
 
-botnetop.mod requires at least eggdrop 1.5.4 (1.6.0 or better recommended) 
-and you need to have the irc, the server and the channel modules loaded. 
+botnetop.mod requires at least eggdrop 1.8.4 and you need to have the irc, the
+server and the channel modules loaded.
 You also need the source code of eggdrop to compile the module.
 
  1. Go to the directory where you have the eggdrop source code.
