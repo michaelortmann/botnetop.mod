@@ -24,7 +24,7 @@ static struct request_t *find_request(char *handle, char *chan)
   struct request_t *r = NULL;
 
   for (r = request_start; r != NULL; r = r->next) {
-    if (!egg_strcasecmp(r->handle, handle) && !rfc_casecmp(r->chan, chan))
+    if (!strcasecmp(r->handle, handle) && !rfc_casecmp(r->chan, chan))
       return r;
   }
 
@@ -36,24 +36,10 @@ static struct request_t *add_request(char *handle, char *chan)
   struct request_t *r = NULL;
 
   r = (struct request_t *) nmalloc(sizeof(struct request_t));
-  if (r == NULL)
-    return NULL;
-
-  r->handle = (char *) nmalloc(strlen(handle) + 1);
-  if (r->handle == NULL) {
-    nfree(r);
-    return NULL;
-  }
-
-  r->chan = (char *) nmalloc(strlen(chan) + 1);
-  if (r->chan == NULL) {
-    nfree(r->handle);
-    nfree(r);
-    return NULL;
-  }
-
-  strncpyz(r->handle, handle, strlen(handle) + 1);
-  strncpyz(r->chan, chan, strlen(chan) + 1);
+  r->handle = nmalloc(strlen(handle) + 1);
+  r->chan = nmalloc(strlen(chan) + 1);
+  strcpy(r->handle, handle);
+  strcpy(r->chan, chan);
 
   r->next = request_start;
   request_start = r;

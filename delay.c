@@ -24,7 +24,7 @@ static struct delay_t *find_delay(char *chan, char *handle)
   struct delay_t *d = NULL;
 
   for (d = delay_start; d != NULL; d = d->next) {
-    if (!rfc_casecmp(d->chan, chan) && !egg_strcasecmp(d->handle, handle))
+    if (!rfc_casecmp(d->chan, chan) && !strcasecmp(d->handle, handle))
       return d;
   }
 
@@ -36,24 +36,10 @@ static struct delay_t *add_delay(char *chan, char *handle)
   struct delay_t *d = NULL;
 
   d = (struct delay_t *) nmalloc(sizeof(struct delay_t));
-  if (d == NULL)
-    return NULL;
-
-  d->chan = (char *) nmalloc(strlen(chan) + 1);
-  if (d->chan == NULL) {
-    nfree(d);
-    return NULL;
-  }
-
-  d->handle = (char *) nmalloc(strlen(handle) + 1);
-  if (d->handle == NULL) {
-    nfree(d->chan);
-    nfree(d);
-    return NULL;
-  }
-
-  strncpyz(d->chan, chan, strlen(chan) + 1);
-  strncpyz(d->handle, handle, strlen(handle) + 1);
+  d->chan = nmalloc(strlen(chan) + 1);
+  d->handle = nmalloc(strlen(handle) + 1);
+  strcpy(d->chan, chan);
+  strcpy(d->handle, handle);
   d->reqs = 0;
   d->reqtime = 0;
   d->resptime = now;

@@ -57,13 +57,13 @@ static int isop(char *nick, struct chanset_t *chan)
 
 static int handisop(char *handle, struct chanset_t *chan)
 {
-  char s[UHOSTLEN];
+  char s[NICKLEN + UHOSTLEN];
   struct userrec *u = NULL;
   memberlist *m = NULL;
 
   for (m = chan->channel.member; m && m->nick[0]; m = m->next) {
-    egg_snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
-    if ((u = get_user_by_host(s)) && !egg_strcasecmp(u->handle, handle) && isop(m->nick, chan))
+    snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
+    if ((u = get_user_by_host(s)) && !strcasecmp(u->handle, handle) && isop(m->nick, chan))
         return 1;
   }
 
@@ -73,7 +73,7 @@ static int handisop(char *handle, struct chanset_t *chan)
 static int lowbots(struct chanset_t *chan)
 {
   int bots = 1;
-  char s[UHOSTLEN];
+  char s[NICKLEN + UHOSTLEN];
   struct userrec *u = NULL;
   memberlist *m = NULL;
 
@@ -83,7 +83,7 @@ static int lowbots(struct chanset_t *chan)
 
   for (m = chan->channel.member; m && m->nick[0]; m = m->next) {
     if (rfc_casecmp(m->nick, botname) && chan_hasop(m)) {
-      egg_snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
+      snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
       if ((u = get_user_by_host(s)) && matchattr(u, "b|-", chan->dname))
         bots++;
     }

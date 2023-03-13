@@ -43,7 +43,8 @@ static int bnop_jointmr(char *nick, char *uhost, char *hand, char *chname)
           return 0;
       }
       d->reqtime = now + (random() % bop_delay) + 5;
-      strncpyz(d->handle, hand, strlen(hand) + 1);
+      d->handle = nrealloc(d->handle, strlen(hand) + 1);
+      strcpy(d->handle, hand);
     }
   } else
     /* We joined the channel - Request ops from all linked bots. */
@@ -55,7 +56,7 @@ static int bnop_jointmr(char *nick, char *uhost, char *hand, char *chname)
 static int bnop_modeop(char *nick, char *uhost, char *hand, char *chname, char *mode, char *victim)
 {
   int i, bufsize;
-  char s[UHOSTLEN], *buf = NULL;
+  char s[NICKLEN + UHOSTLEN], *buf = NULL;
   struct chanset_t *chan = NULL;
   struct userrec *u = NULL;
   struct delay_t *d = NULL;
@@ -67,8 +68,8 @@ static int bnop_modeop(char *nick, char *uhost, char *hand, char *chname, char *
     if (!rfc_casecmp(victim, botname)) {
       /* We got opped - Suggest ops for all the deopped bots on the channel. */
       for (m = chan->channel.member; m && m->nick[0]; m = m->next) {
-        egg_snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
-        if ((u == get_user_by_host(s)) && !chan_hasop(m)) {
+        snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
+        if ((u = get_user_by_host(s)) && !chan_hasop(m)) {
           if (!matchattr(u, "b|-", chan->dname) || !matchattr(u, "o|o", chan->dname) || matchattr(u, "d|d", chan->dname))
             continue;
           if (check_request_status(u->handle, chan->dname))
@@ -81,7 +82,8 @@ static int bnop_modeop(char *nick, char *uhost, char *hand, char *chname, char *
                 continue;
             }
             d->reqtime = now + (random() % bop_delay) + 5;
-            strncpyz(d->handle, u->handle, strlen(u->handle) + 1);
+            d->handle = nrealloc(d->handle, strlen(u->handle) + 1);
+            strcpy(d->handle, u->handle);
           }
         }
       }
@@ -89,15 +91,13 @@ static int bnop_modeop(char *nick, char *uhost, char *hand, char *chname, char *
       /* Some other got opped - Ask for ops if it was a bot. */
       if (!(m = ismember(chan, victim)))
         return 0;
-      egg_snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
+      snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
       if (!(u = get_user_by_host(s)))
         return 0;
       if (matchattr(u, "b|-", chan->dname) && matchattr(u, "o|o", chan->dname) && ((i = nextbot(u->handle)) >= 0)) {
         bufsize = strlen(chan->dname) + 7 + 1;
-        buf = (char *) nmalloc(bufsize);
-        if (buf == NULL)
-          return 0;
-        egg_snprintf(buf, bufsize, "reqops %s", chan->dname);
+        buf = nmalloc(bufsize);
+        snprintf(buf, bufsize, "reqops %s", chan->dname);
         botnet_send_zapf(i, botnetnick, u->handle, buf);
         nfree(buf);
       }
@@ -109,7 +109,7 @@ static int bnop_modeop(char *nick, char *uhost, char *hand, char *chname, char *
 
 static int bnop_modedeop(char *nick, char *uhost, char *hand, char *chname, char *mode, char *victim) 
 {
-  char s[UHOSTLEN];
+  char s[NICKLEN + UHOSTLEN];
   struct chanset_t *chan = NULL;
   struct userrec *u = NULL;
   struct delay_t *d = NULL;
@@ -125,7 +125,7 @@ static int bnop_modedeop(char *nick, char *uhost, char *hand, char *chname, char
       /* Some other got deopped and the deopper wasn't us - Check if it was a bot and suggest ops. */
       if (!(m = ismember(chan, victim)))
         return 0;
-      egg_snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
+      snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
       if (!(u = get_user_by_host(s)))
         return 0;
       if (!matchattr(u, "b|-", chan->dname) || !matchattr(u, "o|o", chan->dname) || matchattr(u, "d|d", chan->dname))
@@ -140,7 +140,8 @@ static int bnop_modedeop(char *nick, char *uhost, char *hand, char *chname, char
             return 0;
         }
         d->reqtime = now + (random() % bop_delay) + 5;
-        strncpyz(d->handle, u->handle, strlen(u->handle) + 1);
+        d->handle = nrealloc(d->handle, strlen(u->handle) + 1);
+        strcpy(d->handle, u->handle);
       }
     }
   }
@@ -150,15 +151,12 @@ static int bnop_modedeop(char *nick, char *uhost, char *hand, char *chname, char
 
 static int bnop_userhost(char *from, char *msg)
 {
-  char *ptr = NULL, *reply = NULL, fromnick[NICKLEN], s[UHOSTLEN];
+  char *reply = NULL, fromnick[NICKLEN], s[UHOSTLEN];
   struct who_t *w = NULL;
   struct chanset_t *chan = NULL;
 
-  ptr = (char *) nmalloc(strlen(msg) + 1);
-  if (ptr == NULL)
-    return 0;
-  reply = ptr;
-  strncpyz(reply, msg, strlen(msg) + 1);
+  reply = nmalloc(strlen(msg) + 1);
+  strcpy(reply, msg);
   newsplit(&reply);
   reply = newsplit(&reply);
   splitc(fromnick, reply + 1, '=');
@@ -166,11 +164,11 @@ static int bnop_userhost(char *from, char *msg)
   if ((w = find_who(fromnick))) {
     if (!(chan = findchan_by_dname(w->chan)))
       return 0;
-    strncpyz(s, strchr("~+-^=", reply[2]) ? reply + 3 : reply + 2, sizeof s);
-    if (!egg_strcasecmp(w->uhost, s)) {
+    strlcpy(s, strchr("~+-^=", reply[2]) ? reply + 3 : reply + 2, sizeof s);
+    if (!strcasecmp(w->uhost, s)) {
       dprintf(DP_SERVER, "INVITE %s %s\n", fromnick, chan->dname);
       if (bop_log >= 1) {
-        if (egg_strcasecmp(fromnick, w->handle)) {
+        if (strcasecmp(fromnick, w->handle)) {
           putlog(LOG_MISC, "*", "botnetop.mod: " BOTNETOP_INVITED2, w->handle, fromnick, chan->dname);
         } else {
           putlog(LOG_MISC, "*", "botnetop.mod: " BOTNETOP_INVITED, w->handle, chan->dname);
@@ -179,7 +177,7 @@ static int bnop_userhost(char *from, char *msg)
     }
     del_who(w);
   }
-  nfree(ptr);
+  nfree(reply);
 
   return 0;
 }

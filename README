@@ -3,7 +3,7 @@
 | ´_ \ / _ \|_   _| `_  \/ _ \|_   _|/ _ \| '_ \
 | |_) | (_) | | | | | | |  __/  | | | (_) | |_) |
 |_.__/ \___/  |_| |_| |_|\___|  |_|  \___/| .__/
-                                          |_|     v1.3
+                                          |_|     v1.4
 
           by Teemu Hjelt <temex@iki.fi>
 
@@ -262,15 +262,12 @@ the FAQ.
 7. Latest version
 ==================
 
-The main site for botnetop.mod is http://www.iki.fi/temex/eggdrop/
+The main site for botnetop.mod was http://www.iki.fi/temex/eggdrop/
+See also https://web.archive.org/web/20010124101700/http://user.sgic.fi/~temex/eggdrop/ 
 
-You can obtain the latest version from the site above or
-via CVS by typing the following lines to your shell prompt:
- 1. cvs -d :pserver:anonymous@cvs.eggheads.org:/usr/local/cvsroot login
-    (when CVS asks for a password just press enter)
- 2. cvs -d :pserver:anonymous@cvs.eggheads.org:/usr/local/cvsroot checkout botnetop.mod
-
-The CVS web is available at http://www.eggheads.org/cgi-bin/cvsweb/botnetop.mod/
+You can obtain the latest version from
+https://ftp.eggheads.org/pub/eggdrop/modules/ and
+https://github.com/michaelortmann/botnetop.mod
 
 
 8. Credits

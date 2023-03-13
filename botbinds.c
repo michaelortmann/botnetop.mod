@@ -23,7 +23,7 @@ static int bnop_linkop(char *bot, char *via)
 {
   struct chanset_t *chan = NULL;
 
-  if (bop_linkop && (!egg_strcasecmp(bot, botnetnick) || !egg_strcasecmp(via, botnetnick))) {
+  if (bop_linkop && (!strcasecmp(bot, botnetnick) || !strcasecmp(via, botnetnick))) {
     for (chan = chanset; chan != NULL; chan = chan->next) {
       if (!isop(botname, chan))
         bnop_reqop(chan->dname, "op");
@@ -57,7 +57,8 @@ static int bnop_reqtmr(char *bot, char *code, char *par)
         return 0;
     }
     d->reqtime = now + (random() % bop_delay) + 2;
-    strncpyz(d->handle, bot, strlen(bot) + 1);
+    d->handle = nrealloc(d->handle, strlen(bot) + 1);
+    strcpy(d->handle, bot);
   }
 
   return 0;
@@ -79,10 +80,8 @@ static int bnop_doiwantops(char *bot, char *code, char *par)
     if (check_delay_status(chan->dname, bot))
       return 0;
     bufsize = strlen(chan->dname) + strlen(botname) + strlen(botuserhost) + 14 + 1;
-    buf = (char *) nmalloc(bufsize);
-    if (buf == NULL)
-      return 0;
-    egg_snprintf(buf, bufsize, "yesiwantops %s %s %s", chan->dname, botname, 
+    buf = nmalloc(bufsize);
+    snprintf(buf, bufsize, "yesiwantops %s %s %s", chan->dname, botname, 
                  strchr("~+-^=", botuserhost[0]) ? botuserhost + 1 : botuserhost);
     botnet_send_zapf(i, botnetnick, bot, buf);
     nfree(buf);
@@ -95,7 +94,7 @@ static int bnop_doiwantops(char *bot, char *code, char *par)
 
 static int bnop_botwantsops(char *bot, char *code, char *par)
 {
-  char *chname = NULL, *fromnick = NULL, *fromhost = NULL, s[UHOSTLEN];
+  char *chname = NULL, *fromnick = NULL, *fromhost = NULL, s[NICKLEN + UHOSTLEN];
   struct chanset_t *chan = NULL;
   struct userrec *u = NULL;
   memberlist *m = NULL;
@@ -111,19 +110,19 @@ static int bnop_botwantsops(char *bot, char *code, char *par)
     return 0;
   if (!matchattr(u, "b|-", chan->dname) && !matchattr(u, "o|o", chan->dname) && matchattr(u, "d|d", chan->dname))
     return 0;
-  egg_snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
+  snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
   if (!(u = get_user_by_host(s)))
     return 0;
   if (bop_hcheck && fromhost[0] && 
-      egg_strcasecmp(fromhost, strchr("~^+=-", m->userhost[0]) ? m->userhost + 1 : m->userhost))
+      strcasecmp(fromhost, strchr("~^+=-", m->userhost[0]) ? m->userhost + 1 : m->userhost))
     return 0;
   if (!matchattr(u, "o|o", chan->dname)) {
     if (!fromhost[0] || !bop_addhost)
       return 0;
     if (strchr("~^+=-", m->userhost[0]))
-      egg_snprintf(s, sizeof s, "*!%s%s", strict_host ? "?" : "", m->userhost + 1);
+      snprintf(s, sizeof s, "*!%s%s", strict_host ? "?" : "", m->userhost + 1);
     else
-      egg_snprintf(s, sizeof s, "*!%s", m->userhost);
+      snprintf(s, sizeof s, "*!%s", m->userhost);
     addhost_by_handle(bot, s);
     putlog(LOG_MISC, "*", "botnetop.mod: " BOTNETOP_ADDHOST, s, bot);
   }
@@ -141,7 +140,7 @@ static int bnop_botwantsops(char *bot, char *code, char *par)
       return 0;
   }
   if (bop_log >= 2) {
-    if (egg_strcasecmp(fromnick, bot))
+    if (strcasecmp(fromnick, bot))
       putlog(LOG_MISC, "*", "botnetop.mod: " BOTNETOP_GAVEOPS2, bot, fromnick, chan->dname);
     else
       putlog(LOG_MISC, "*", "botnetop.mod: " BOTNETOP_GAVEOPS, bot, chan->dname);
@@ -170,7 +169,7 @@ static int bnop_botwantsin(char *bot, char *code, char *par)
       mask++;
     else
       mask = fromhost;
-    egg_snprintf(s, sizeof s, "*!*%s", strchr("~^+=-", mask[0]) ? mask + 1 : mask);
+    snprintf(s, sizeof s, "*!*%s", strchr("~^+=-", mask[0]) ? mask + 1 : mask);
     if (strlen(s) > 70) {
       s[69] = '*';
       s[70] = 0;
@@ -184,10 +183,8 @@ static int bnop_botwantsin(char *bot, char *code, char *par)
         if (check_flood_status(chan->dname))
           return 0;
         bufsize = strlen(chan->dname) + strlen(chan->channel.key) + 8 + 1;
-        buf = (char *) nmalloc(bufsize);
-        if (buf == NULL)
-          return 0;
-        egg_snprintf(buf, bufsize, "thekey %s %s", chan->dname, chan->channel.key);
+        buf = nmalloc(bufsize);
+        snprintf(buf, bufsize, "thekey %s %s", chan->dname, chan->channel.key);
         botnet_send_zapf(i, botnetnick, bot, buf);
         nfree(buf);
         if (bop_log >= 1) 

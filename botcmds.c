@@ -31,10 +31,8 @@ static int bnop_reqop(char *chname, char *need)
     return 0;
   if (!strcmp(need, "op")) {
     bufsize = strlen(chan->dname) + 7 + 1;
-    buf = (char *) nmalloc(bufsize);
-    if (buf == NULL)
-      return 0;
-    egg_snprintf(buf, bufsize, "reqops %s", chan->dname);
+    buf = nmalloc(bufsize);
+    snprintf(buf, bufsize, "reqops %s", chan->dname);
     for (bot = tandbot; bot != NULL; bot = bot->next) {
       if (!(u = get_user_by_handle(userlist, bot->bot)))
         continue;
@@ -53,21 +51,18 @@ static void bnop_askbot(char *hand, char *chname)
   int i, bufsize;
   char *buf = NULL;
   struct chanset_t *chan = NULL;
-  struct userrec *u = NULL;
   struct request_t *r = NULL;
 
   if ((r = find_request(hand, chname)))
     del_request(r);
-  if (!(chan = findchan_by_dname(chname)) || !(u = get_user_by_handle(userlist, hand)))
+  if (!(chan = findchan_by_dname(chname)) || !get_user_by_handle(userlist, hand))
     return;
   if (!ismember(chan, botname) || !isop(botname, chan))
     return;
   if ((i = nextbot(hand)) >= 0) {
     bufsize = strlen(chan->dname) + strlen(botname) + 13 + 1;
-    buf = (char *) nmalloc(bufsize);
-    if (buf == NULL)
-      return;
-    egg_snprintf(buf, bufsize, "doyawantops %s %s", chan->dname, botname);
+    buf = nmalloc(bufsize);
+    snprintf(buf, bufsize, "doyawantops %s %s", chan->dname, botname);
     botnet_send_zapf(i, botnetnick, hand, buf);
     nfree(buf);
   }
@@ -85,7 +80,7 @@ static void bnop_invite(struct chanset_t *chan, char *nick, char *hand, char *uh
   } else {
     dprintf(DP_SERVER, "INVITE %s %s\n", nick, chan->dname);
     if (bop_log >= 1) {
-      if (egg_strcasecmp(nick, hand))
+      if (strcasecmp(nick, hand))
         putlog(LOG_MISC, "*", "botnetop.mod " BOTNETOP_INVITED2, hand, nick, chan->dname);
       else
         putlog(LOG_MISC, "*", "botnetop.mod " BOTNETOP_INVITED, hand, chan->dname);
@@ -104,26 +99,24 @@ static void bnop_letmein(struct chanset_t *chan, char *need)
     return;
 
   bufsize = strlen(chan->dname) + strlen(botname) + strlen(botname) + strlen(botuserhost) + 13 + 1;
-  buf = (char *) nmalloc(bufsize);
-  if (buf == NULL)
-    return;
+  buf = nmalloc(bufsize);
 
   if (!strcmp(need, "key")) {
-      egg_snprintf(buf, bufsize, "wantkey %s %s %s", chan->dname, botname, 
+      snprintf(buf, bufsize, "wantkey %s %s %s", chan->dname, botname, 
                    strchr("~+-^=", botuserhost[0]) ? botuserhost + 1 : botuserhost);
-      strncpyz(log, "botnetop.mod: " BOTNETOP_REQKEY, sizeof log);
+      strlcpy(log, "botnetop.mod: " BOTNETOP_REQKEY, sizeof log);
   } else if (!strcmp(need, "invite")) {
-      egg_snprintf(buf, bufsize, "wantinvite %s %s %s", chan->dname, botname, 
+      snprintf(buf, bufsize, "wantinvite %s %s %s", chan->dname, botname, 
                    strchr("~+-^=", botuserhost[0]) ? botuserhost + 1 : botuserhost);
-      strncpyz(log, "botnetop.mod: " BOTNETOP_REQINVITE, sizeof log);
+      strlcpy(log, "botnetop.mod: " BOTNETOP_REQINVITE, sizeof log);
   } else if (!strcmp(need, "limit")) {
-      egg_snprintf(buf, bufsize, "wantlimit %s %s %s", chan->dname, botname, 
+      snprintf(buf, bufsize, "wantlimit %s %s %s", chan->dname, botname, 
                    strchr("~+-^=", botuserhost[0]) ? botuserhost + 1 : botuserhost);
-      strncpyz(log, "botnetop.mod: " BOTNETOP_REQLIMIT, sizeof log);
+      strlcpy(log, "botnetop.mod: " BOTNETOP_REQLIMIT, sizeof log);
   } else if (!strcmp(need, "unban")) {
-      egg_snprintf(buf, bufsize, "wantunban %s %s %s!%s", chan->dname, 
+      snprintf(buf, bufsize, "wantunban %s %s %s!%s", chan->dname, 
                    botname, botname, botuserhost);
-      strncpyz(log, "botnetop.mod: " BOTNETOP_REQUNBAN, sizeof log);
+      strlcpy(log, "botnetop.mod: " BOTNETOP_REQUNBAN, sizeof log);
   }
 
   if (buf[0]) {

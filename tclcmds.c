@@ -27,7 +27,7 @@ static int onchan(struct userrec *u, struct chanset_t *chan)
   memberlist *m = NULL;
 
   for (m = chan->channel.member; m && m->nick[0]; m = m->next) {
-    egg_snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
+    snprintf(s, sizeof s, "%s!%s", m->nick, m->userhost);
     if ((u == get_user_by_host(s)))
       return 1;
   }

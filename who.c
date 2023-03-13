@@ -36,43 +36,14 @@ static struct who_t *add_who(char *nick, char *chan, char *handle, char *uhost)
   struct who_t *w = NULL;
 
   w = (struct who_t *) nmalloc(sizeof(struct who_t));
-  if (w == NULL)
-    return NULL;
-
-  w->nick = (char *) nmalloc(strlen(nick) + 1);
-  if (w->nick == NULL) {
-    nfree(w);
-    return NULL;
-  }
-
-  w->chan = (char *) nmalloc(strlen(chan) + 1);
-  if (w->chan == NULL) {
-    nfree(w->nick);
-    nfree(w);
-    return NULL;
-  }
-
-  w->handle = (char *) nmalloc(strlen(handle) + 1);
-  if (w->handle == NULL) {
-    nfree(w->nick);
-    nfree(w->chan);
-    nfree(w);
-    return NULL;
-  }
-
-  w->uhost = (char *) nmalloc(strlen(uhost) + 1);
-  if (w->uhost == NULL) {
-    nfree(w->nick);
-    nfree(w->chan);
-    nfree(w->handle);
-    nfree(w);
-    return NULL;
-  }
-
-  strncpyz(w->chan, chan, strlen(chan) + 1);
-  strncpyz(w->nick, nick, strlen(nick) + 1);
-  strncpyz(w->handle, handle, strlen(handle) + 1);
-  strncpyz(w->uhost, uhost, strlen(uhost) + 1);
+  w->nick = nmalloc(strlen(nick) + 1);
+  w->chan = nmalloc(strlen(chan) + 1);
+  w->handle = nmalloc(strlen(handle) + 1);
+  w->uhost = nmalloc(strlen(uhost) + 1);
+  strcpy(w->chan, chan);
+  strcpy(w->nick, nick);
+  strcpy(w->handle, handle);
+  strcpy(w->uhost, uhost);
   w->time = now;
 
   w->next = who_start;

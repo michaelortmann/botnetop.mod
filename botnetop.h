@@ -154,28 +154,6 @@ static void bnop_askbot(char *, char *);
 static void bnop_invite(struct chanset_t *, char *, char *, char *);
 static void bnop_letmein(struct chanset_t *, char *);
 
-/*
- * Macros
- */
-
-#ifndef strncpyz
-#  define strncpyz(target, source, len) do {      \
-          strncpy((target), (source), (len) - 1); \
-          (target)[(len) - 1] = 0;                \
-          } while (0)
-#endif  /* strncpyz */
-
-/* If the compat functions aren't defined
-   we just assume that the system has them. */
-
-#ifndef egg_strcasecmp
-#  define egg_strcasecmp strcasecmp
-#endif /* egg_strcasecmp */
-
-#ifndef egg_snprintf
-#  define egg_snprintf snprintf
-#endif /* egg_snprintf */
-
 #endif  /* MAKING_BOTNETOP */
 
 #endif  /* _EGG_MOD_BOTNETOP_BOTNETOP_H */

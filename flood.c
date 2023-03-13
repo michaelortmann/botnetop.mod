@@ -36,16 +36,8 @@ static struct flood_t *add_flood(char *chan)
   struct flood_t *f = NULL;
 
   f = (struct flood_t *) nmalloc(sizeof(struct flood_t));
-  if (f == NULL)
-    return NULL;
-
-  f->chan = (char *) nmalloc(strlen(chan) + 1);
-  if (f->chan == NULL) {
-    nfree(f);
-    return NULL;
-  }
-
-  strncpyz(f->chan, chan, strlen(chan) + 1);
+  f->chan = nmalloc(strlen(chan) + 1);
+  strcpy(f->chan, chan);
   f->time = now;
   f->amount = 0;
   f->ignore = 0;
