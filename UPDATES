@@ -1,3 +1,7 @@
+1.5 November 28, 2024
+- Tcl_AppendResult() -> Tcl_SetResult()
+- COPYING -> LICENSE
+- Typo fix: cruicial -> cruicial
 1.4 October 4, 2023
 - add web.archive.org link
 - fix dead nested assignment

@@ -21,7 +21,7 @@
 
 #define MODULE_NAME "botnetop"
 #define MAKING_BOTNETOP
-#define MODULE_VERSION "1.4"
+#define MODULE_VERSION "1.5"
 #include "../module.h"
 #include "../irc.mod/irc.h"
 #include "../server.mod/server.h"
@@ -202,7 +202,7 @@ char *botnetop_start(Function * global_funcs)
 {
   global = global_funcs;
 
-  module_register(MODULE_NAME, botnetop_table, 1, 4);
+  module_register(MODULE_NAME, botnetop_table, 1, 5);
   if (!module_depend(MODULE_NAME, "eggdrop", 108, 4)) {
         module_undepend(MODULE_NAME);
         return "This module requires Eggdrop 1.8.4 or later.";

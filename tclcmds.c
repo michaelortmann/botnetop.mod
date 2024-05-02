@@ -135,9 +135,9 @@ static int tcl_bop_lowbots STDVAR
     return TCL_ERROR;
   }
   if (lowbots(chan))
-    Tcl_AppendResult(irp, "1", NULL);
+    Tcl_SetResult(irp, "1", TCL_STATIC);
   else
-    Tcl_AppendResult(irp, "0", NULL);
+    Tcl_SetResult(irp, "0", TCL_STATIC);
 
   return TCL_OK;
 }

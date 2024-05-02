@@ -49,7 +49,7 @@
  */
 
 /* Size of the log entries. Getting a truncated log entry isn't
-   that cruicial and 1024 should be enough for everybody anyway. */
+   that crucial and 1024 should be enough for everybody anyway. */
 
 #ifndef LOGSIZE
 #  define LOGSIZE 1024+1
