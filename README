@@ -50,9 +50,11 @@ You also need the source code of eggdrop to compile the module.
     (Normally the directory where you have extracted the eggdrop tarball)
  2. Go to src/mod directory under your eggdrop directory and copy the
     botnetop.mod tarball there.
- 3. Type "tar zxvf botnetop.mod-x.x.x.tar.gz" to extract the tarball.
-    (If that doesn't work type first "gzip -d botnetop.mod-x.x.x.tar.gz"
-    and then "tar -xvf botnetop.mod-x.x.x.tar")
+    Or clone the git repository:
+    git clone https://github.com/michaelortmann/botnetop.mod.git
+ 3. Type "tar zxvf botnetop.mod-x.x.tar.gz" to extract the tarball.
+    (If that doesn't work type first "gzip -d botnetop.mod-x.x.tar.gz"
+    and then "tar -xvf botnetop.mod-x.x.tar.gz")
  4. Configure and compile eggdrop like you would normally do it.
     (e.g, ./configure && make config && make && make install)
 
@@ -298,7 +300,7 @@ and supported the project in other ways.
 
 botnetop.mod is written by Teemu Hjelt and is released to the public under
 the terms of the GNU General Public License. For the complete license please
-see the file called COPYING.
+see the file called LICENSE.
 
 
 Copyright (C) 2000, 2001, 2002  Teemu Hjelt <temex@iki.fi>
